@@ -31,7 +31,7 @@
 MAX_ACK_QUEUE = 25
 MAX_MSG_QUEUE = 25
 
-import thread
+import _thread
 import time
 
 from ant.core.constants import *
@@ -48,7 +48,7 @@ def ProcessBuffer(buffer_):
             msg = hf.getHandler(buffer_)
             buffer_ = buffer_[len(msg.getPayload()) + 4:]
             messages.append(msg)
-        except MessageError, e:
+        except MessageError as e:
             if e.internal == "CHECKSUM":
                 buffer_ = buffer_[ord(buffer_[1]) + 4:]
             else:
@@ -65,7 +65,7 @@ def EventPump(evm):
     go = True
     
     while go:
-        buffer_ = ''
+        buffer_ = bytearray()
         evm.running_lock.acquire()
         if not evm.running:
             go = False
@@ -81,7 +81,7 @@ def EventPump(evm):
             for callback in evm.callbacks:
                 try:
                     callback.process(message)
-                except Exception, e:
+                except Exception as e:
                     pass
 
         evm.callbacks_lock.release()
@@ -124,11 +124,11 @@ class MsgCallback(EventCallback):
 
 
 class EventMachine(object):
-    callbacks_lock = thread.allocate_lock()
-    running_lock = thread.allocate_lock()
-    pump_lock = thread.allocate_lock()
-    ack_lock = thread.allocate_lock()
-    msg_lock = thread.allocate_lock()
+    callbacks_lock = _thread.allocate_lock()
+    running_lock = _thread.allocate_lock()
+    pump_lock = _thread.allocate_lock()
+    ack_lock = _thread.allocate_lock()
+    msg_lock = _thread.allocate_lock()
 
     def __init__(self, driver):
         self.driver = driver
@@ -186,7 +186,7 @@ class EventMachine(object):
         if driver is not None:
             self.driver = driver
 
-        thread.start_new_thread(EventPump, (self,))
+        _thread.start_new_thread(EventPump, (self,))
         while True:
             self.pump_lock.acquire()
             if self.pump:

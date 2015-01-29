@@ -38,7 +38,7 @@ setup(
     license='MIT',
     description='Python implementation of the ANT, ANT+, and ANT-FS ' \
                 'protocols (http://www.thisisant.com/).',
-    author=u'Mart\u00EDn Ra\u00FAl Villalba',
+    author='Mart\u00EDn Ra\u00FAl Villalba',
     author_email='martin@martinvillalba.com',
     long_description=read('README.md'),
     classifiers=[
