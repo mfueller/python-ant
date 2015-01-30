@@ -50,7 +50,7 @@ def ProcessBuffer(buffer_):
             messages.append(msg)
         except MessageError as e:
             if e.internal == "CHECKSUM":
-                buffer_ = buffer_[ord(buffer_[1]) + 4:]
+                buffer_ = buffer_[buffer_[1] + 4:]
             else:
                 break
 

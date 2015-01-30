@@ -236,6 +236,8 @@ class USB2Driver(Driver):
             arr_inp = self._ep_in.read(count)
         except usb.core.USBError:
             # Timeout errors seem to occasionally be expected
+            # print("Timeout error while reading from device")
+            return arr_inp.tostring()
             pass
 
         return arr_inp.tostring()
