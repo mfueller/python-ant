@@ -33,7 +33,7 @@ def read(fname):
 
 setup(
     name='ant',
-    version='develop',
+    version='0.1.0-dev',
     url='http://www.github.com/mvillalba/python-ant',
     license='MIT',
     description='Python implementation of the ANT, ANT+, and ANT-FS ' \
@@ -49,6 +49,7 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Communications",
         "Topic :: Communications :: File Sharing",
         "Topic :: Software Development :: Libraries :: Python Modules",
